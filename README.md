@@ -1,36 +1,12 @@
-# The C++ Project Readme #
+---
+typora-root-url: ./README WriteUp.md
+---
 
-This is the readme for the C++ project.
+# PROJECT 3 - CONTROLS
 
-For easy navigation throughout this document, here is an outline:
+In this project we get to investigate and recreate the control systems that enable our drones to fly from one position to another in our previous simulations. To accomplish this, we will be implementing a cascaded PID controller as detailed below.
 
- - [Development environment setup](#development-environment-setup)
- - [Simulator walkthrough](#simulator-walkthrough)
- - [The tasks](#the-tasks)
- - [Evaluation](#evaluation)
-
-
-## Development Environment Setup ##
-
-Regardless of your development platform, the first step is to download or clone this repository.
-
-Once you have the code for the simulator, you will need to install the necessary compiler and IDE necessary for running the simulator.
-
-Here are the setup and install instructions for each of the recommended IDEs for each different OS options:
-
-### Windows ###
-
-For Windows, the recommended IDE is Visual Studio.  Here are the steps required for getting the project up and running using Visual Studio.
-
-1. Download and install [Visual Studio](https://www.visualstudio.com/vs/community/)
-2. Select *Open Project / Solution* and open `<simulator>/project/Simulator.sln`
-3. From the *Project* menu, select the *Retarget solution* option and select the Windows SDK that is installed on your computer (this should have been installed when installing Visual Studio or upon opening of the project).
-4. Make sure platform matches the flavor of Windows you are using (x86 or x64). The platform is visible next to the green play button in the Visual Studio toolbar:
-
-![x64](x64.png)
-
-5. To compile and run the project / simulator, simply click on the green play button at the top of the screen.  When you run the simulator, you should see a single quadcopter, falling down.
-
+The first step is to get our IDE working and compiling C++ code as C++ is the standard when working with flight controllers, such as the PX 4. 
 
 ### OS X ###
 
@@ -43,113 +19,24 @@ For Mac OS X, the recommended IDE is XCode, which you can get via the App Store.
   2. In new window, under *Run/Debug* on left side, under the *Options* tab, set Working Directory to `$PROJECT_DIR` and check ‘use custom working directory’.
   3. Compile and run the project. You should see a single quadcopter, falling down.
 
+Tips: For those working on older laptops still running mac OS' as old as 10.11.6 (El Capitan, circa 2010), it is still possible to work with Xcode as an IDE for this project, but two significant adjustments must be made. Without these changes, it may not be possible to compile.
 
-### Linux ###
-
-For Linux, the recommended IDE is QtCreator.
-
-1. Download and install QtCreator.
-2. Open the `.pro` file from the `<simulator>/project` directory.
-3. Compile and run the project (using the tab `Build` select the `qmake` option.  You should see a single quadcopter, falling down.
-
-**NOTE:** You may need to install the GLUT libs using `sudo apt-get install freeglut3-dev`
-
-
-### Advanced Versions ###
-
-These are some more advanced setup instructions for those of you who prefer to use a different IDE or build the code manually.  Note that these instructions do assume a certain level of familiarity with the approach and are not as detailed as the instructions above.
-
-#### CLion IDE ####
-
-For those of you who are using the CLion IDE for developement on your platform, we have included the necessary `CMakeLists.txt` file needed to build the simulation.
-
-#### CMake on Linux ####
-
-For those of you interested in doing manual builds using `cmake`, we have provided a `CMakeLists.txt` file with the necessary configuration.
-
-**NOTE: This has only been tested on Ubuntu 16.04, however, these instructions should work for most linux versions.  Also note that these instructions assume knowledge of `cmake` and the required `cmake` dependencies are installed.**
-
-1. Create a new directory for the build files:
-
-```sh
-cd FCND-Controls-CPP
-mkdir build
-```
-
-2. Navigate to the build directory and run `cmake` and then compile and build the code:
-
-```sh
-cd build
-cmake ..
-make
-```
-
-3. You should now be able to run the simulator with `./CPPSim` and you should see a single quadcopter, falling down.
-
-## Simulator Walkthrough ##
-
-Now that you have all the code on your computer and the simulator running, let's walk through some of the elements of the code and the simulator itself.
-
-### The Code ###
-
-For the project, the majority of your code will be written in `src/QuadControl.cpp`.  This file contains all of the code for the controller that you will be developing.
-
-All the configuration files for your controller and the vehicle are in the `config` directory.  For example, for all your control gains and other desired tuning parameters, there is a config file called `QuadControlParams.txt` set up for you.  An import note is that while the simulator is running, you can edit this file in real time and see the affects your changes have on the quad!
-
-The syntax of the config files is as follows:
-
- - `[Quad]` begins a parameter namespace.  Any variable written afterwards becomes `Quad.<variablename>` in the source code.
- - If not in a namespace, you can also write `Quad.<variablename>` directly.
- - `[Quad1 : Quad]` means that the `Quad1` namespace is created with a copy of all the variables of `Quad`.  You can then overwrite those variables by specifying new values (e.g. `Quad1.Mass` to override the copied `Quad.Mass`).  This is convenient for having default values.
-
-You will also be using the simulator to fly some difference trajectories to test out the performance of your C++ implementation of your controller. These trajectories, along with supporting code, are found in the `traj` directory of the repo.
-
-
-### The Simulator ###
-
-In the simulator window itself, you can right click the window to select between a set of different scenarios that are designed to test the different parts of your controller.
-
-The simulation (including visualization) is implemented in a single thread.  This is so that you can safely breakpoint code at any point and debug, without affecting any part of the simulation.
-
-Due to deterministic timing and careful control over how the pseudo-random number generators are initialized and used, the simulation should be exactly repeatable. This means that any simulation with the same configuration should be exactly identical when run repeatedly or on different machines.
-
-Vehicles are created and graphs are reset whenever a scenario is loaded. When a scenario is reset (due to an end condition such as time or user pressing the ‘R’ key), the config files are all re-read and state of the simulation/vehicles/graphs is reset -- however the number/name of vehicles and displayed graphs are left untouched.
-
-When the simulation is running, you can use the arrow keys on your keyboard to impact forces on your drone to see how your controller reacts to outside forces being applied.
-
-#### Keyboard / Mouse Controls ####
-
-There are a handful of keyboard / mouse commands to help with the simulator itself, including applying external forces on your drone to see how your controllers reacts!
-
- - Left drag - rotate
- - X + left drag - pan
- - Z + left drag - zoom
- - arrow keys - apply external force
- - C - clear all graphs
- - R - reset simulation
- - Space - pause simulation
+![](/../images/OldLapTops.png)
 
 
 
+Most of the code is to be written in **src/QuadControl.cpp**. However, most of my time spent interating was spent in another document altogether, namely  **QuadControlParams.txt.**
 
-### Testing it Out ###
 
-When you run the simulator, you'll notice your quad is falling straight down.  This is due to the fact that the thrusts are simply being set to:
+### SCENARIO 1 ###
 
-```
-QuadControlParams.Mass * 9.81 / 4
-```
+Watching the seed project compile error free is an excitement which is quickly dashed as our simulator starts up and we see our virtual drone plummet repeatedly crashing to the ground. 
 
-Therefore, if the mass doesn't match the actual mass of the quad, it'll fall down.  Take a moment to tune the `Mass` parameter in `QuadControlParams.txt` to make the vehicle more or less stay in the same spot.
+Thus the first step is to adjust the mass of our drone in **QuadControlParams.txt** until we achieve a near hover. This scenario highlights how significantly mass will affect our calculations. One of the most difficult scenarios will occur later when we try to work with non-ideal drones. There are many threads on RC forums dedicated to propellor balancing, an obsession I never fully understood until studying this course. Later in scenario **4_NonIdealities**, we will start to see why such detailed attention and the quest for balance is more then just an rc geek pastime. 
 
-Note: if you want to come back to this later, this scenario is "1_Intro".
+With some tuning we eventually arrive at a *Mass = 0.5*:
 
-With the proper mass, your simulation should look a little like this:
-
-<p align="center">
-<img src="animations/scenario1.gif" width="500"/>
-</p>
-
+![](/Users/admin/miniconda3/UDACITY/P3_Controls/FCND-Controls-CPP/WriteUp/images/1_Intro-Pass.png)
 
 ## The Tasks ##
 
@@ -157,143 +44,179 @@ For this project, you will be building a controller in C++.  You will be impleme
 
 You may find it helpful to consult the [Python controller code](https://github.com/udacity/FCND-Controls/blob/solution/controller.py) as a reference when you build out this controller in C++.
 
-#### Notes on Parameter Tuning
-1. **Comparison to Python**: Note that the vehicle you'll be controlling in this portion of the project has different parameters than the vehicle that's controlled by the Python code linked to above. **The tuning parameters that work for the Python controller will not work for this controller**
+1. **Parameter Ranges**: You can find the vehicle's control parameters in a file called `QuadControlParams.txt`. The default values for these parameters are all too small by a factor of somewhere between about 2X and 4X. So if a parameter has a starting value of 12, it will likely have a value somewhere between 24 and 48 once it's properly tuned.
 
-2. **Parameter Ranges**: You can find the vehicle's control parameters in a file called `QuadControlParams.txt`. The default values for these parameters are all too small by a factor of somewhere between about 2X and 4X. So if a parameter has a starting value of 12, it will likely have a value somewhere between 24 and 48 once it's properly tuned.
+2. **Parameter Ratios**: In this [one-page document](https://www.overleaf.com/read/bgrkghpggnyc#/61023787/) you can find a derivation of the ratio of velocity proportional gain to position proportional gain for a critically damped double integrator system. The ratio of `kpV / kpP` should be 4.
 
-3. **Parameter Ratios**: In this [one-page document](https://www.overleaf.com/read/bgrkghpggnyc#/61023787/) you can find a derivation of the ratio of velocity proportional gain to position proportional gain for a critically damped double integrator system. The ratio of `kpV / kpP` should be 4.
+### Scenario 2 ###
 
-### Body rate and roll/pitch control (scenario 2) ###
+For this portion we will be implementing a cascaded PID controller as seen below:
 
-First, you will implement the body rate and roll / pitch control.  For the simulation, you will use `Scenario 2`.  In this scenario, you will see a quad above the origin.  It is created with a small initial rotation speed about its roll axis.  Your controller will need to stabilize the rotational motion and bring the vehicle back to level attitude.
+![](/../images/PID_Cascaded_ControlArchitecture.png)
 
-To accomplish this, you will:
+Here we implement body rate and roll / pitch control. To do this we need to implment the following equations:
 
-1. Implement body rate control
+```
+thurst = mass * CONST_GRAVITY
+```
 
- - implement the code in the function `GenerateMotorCommands()`
- - implement the code in the function `BodyRateControl()`
- - Tune `kpPQR` in `QuadControlParams.txt` to get the vehicle to stop spinning quickly but not overshoot
+![](/../images/taoTotal.png)
 
-If successful, you should see the rotation of the vehicle about roll (omega.x) get controlled to 0 while other rates remain zero.  Note that the vehicle will keep flying off quite quickly, since the angle is not yet being controlled back to 0.  Also note that some overshoot will happen due to motor dynamics!.
+Where:
 
-If you come back to this step after the next step, you can try tuning just the body rate omega (without the outside angle controller) by setting `QuadControlParams.kpBank = 0`.
+![](/../images/Ftotal.png)
 
-2. Implement roll / pitch control
-We won't be worrying about yaw just yet.
+From these equations we see the significance of the drone's arm length (l) in determining Mx. 
 
- - implement the code in the function `RollPitchControl()`
- - Tune `kpBank` in `QuadControlParams.txt` to minimize settling time but avoid too much overshoot
+![](/../images/Length_L.png)
 
-If successful you should now see the quad level itself (as shown below), though it’ll still be flying away slowly since we’re not controlling velocity/position!  You should also see the vehicle angle (Roll) get controlled to 0.
+Our drone model is an X frame where we can infer symmetry. But other models do exist, such as the H - frame that is popular in drone racing. Below left we see the Drone Racing Leagues version 2.0 model. On the right we see the 2019 Drone Racing League model 3.0. If diagonal symmetry is broken along an axis, such as we see in the H - model, what effect does that have on performance and PID tuning? Although this isn't a scenario we can explore given our simulation drone is a fixed X model, it is a point worthy of consideration.
 
-<p align="center">
-<img src="animations/scenario2.gif" width="500"/>
-</p>
+![](/../images/on-the-left-the-racer2-on-the-right-the-racer3.jpeg)
 
+​														- image: Drone Racing League, 2019
 
-### Position/velocity and yaw angle control (scenario 3) ###
+After Implementation but prior to our tuning efforts we see that we are getting some overshoot. It is suggested we tune our inner control loops first as the inner loops affect the outer loops.
+After some extensive tuning, we are able to halt our drone's continual perishing plunge downwards. P's usable range seemed quite high. Looking for the envelopes of usable flight for P we observe:![](/../images/Scenario2_ThreePositions_P-10_100_300.png)
 
-Next, you will implement the position, altitude and yaw control for your quad.  For the simulation, you will use `Scenario 3`.  This will create 2 identical quads, one offset from its target point (but initialized with yaw = 0) and second offset from target point but yaw = 45 degrees.
+**P = 10**
+![](/../images/Scenario_2_P-10.png)
 
- - implement the code in the function `LateralPositionControl()`
- - implement the code in the function `AltitudeControl()`
- - tune parameters `kpPosZ` and `kpPosZ`
- - tune parameters `kpVelXY` and `kpVelZ`
+**P = 100**
+![](/../images/Scenario_2_P-100.png)
 
-If successful, the quads should be going to their destination points and tracking error should be going down (as shown below). However, one quad remains rotated in yaw.
+**P = 300**
+![](/../images/Scenario_2_P-300.png)
 
- - implement the code in the function `YawControl()`
- - tune parameters `kpYaw` and the 3rd (z) component of `kpPQR`
+With the goal of a happy median between the acute trajectories bounded by **P [10:300]**, we finally settle on **P= 100** which causes the drone to fly up in a roughly vertical direction as seen in the middle slate. It should be noted that the range **P** **[10:338]** is upper bound exclusive in this notation and **338** marks the threshold for P which, if input, causes the drone to tumble to the ground.
 
-Tune position control for settling time. Don’t try to tune yaw control too tightly, as yaw control requires a lot of control authority from a quadcopter and can really affect other degrees of freedom.  This is why you often see quadcopters with tilted motors, better yaw authority!
+### SCENARIO 3 ###
 
-<p align="center">
-<img src="animations/scenario3.gif" width="500"/>
-</p>
+Here we have two identical quads, but with different intial Yaw settings (0, 45 degrees). It is up to us to implement the LateralPositionControl, AltitudeControl and Yaw control, noting that the Yaw control is a first order system. During the process of tuning we see some unusual behaviour.
+As P increases upwards of 300, we see the drone flying towards camera left. Lower near zero values send it shooting off camera right. Again we aim for something reasonable and choose to keep P = 100, which  now has a slight favored bias derived from our Scenario 2's tuning experience. Next we turn to our Q parameter. 
 
-**Hint:**  For a second order system, such as the one for this quadcopter, the velocity gain (`kpVelXY` and `kpVelZ`) should be at least ~3-4 times greater than the respective position gain (`kpPosXY` and `kpPosZ`).
+Normally we would just tune Q to "Pass", Q = 100 would be sufficient here. However, with Sim(t) = 4 seconds, tuning to find the bounds of the parameter Q reveals an interesting possible discontinuity or inflection point surrounding Q = 600 as shown below:
 
-### Non-idealities and robustness (scenario 4) ###
+**Q = 100** : Both drones fly.
+![](/../images/Scenario_3_Q-100.png)
 
-In this part, we will explore some of the non-idealities and robustness of a controller.  For this simulation, we will use `Scenario 4`.  This is a configuration with 3 quads that are all are trying to move one meter forward.  However, this time, these quads are all a bit different:
- - The green quad has its center of mass shifted back
- - The orange vehicle is an ideal quad
- - The red vehicle is heavier than usual
+**Q= 600** : Both drones crash.
+![](/../images/Scenario_3_Q-600.png)
 
-1. Run your controller & parameter set from Step 3.  Do all the quads seem to be moving OK?  If not, try to tweak the controller parameters to work for all 3 (tip: relax the controller).
+**Q = 700** : One flutters and then survives. The other crashes.
+![](/../images/Scenario_3_Q-700.png)
 
-2. Edit `AltitudeControl()` to add basic integral control to help with the different-mass vehicle.
-
-3. Tune the integral control, and other control parameters until all the quads successfully move properly.  Your drones' motion should look like this:
-
-<p align="center">
-<img src="animations/scenario4.gif" width="500"/>
-</p>
+**Q = 1000** : Surprisingly, both drones fly again.
+![](/../images/Scenario_3_Q-1000.png)
 
 
-### Tracking trajectories ###
 
-Now that we have all the working parts of a controller, you will put it all together and test it's performance once again on a trajectory.  For this simulation, you will use `Scenario 5`.  This scenario has two quadcopters:
- - the orange one is following `traj/FigureEight.txt`
- - the other one is following `traj/FigureEightFF.txt` - for now this is the same trajectory.  For those interested in seeing how you might be able to improve the performance of your drone by adjusting how the trajectory is defined, check out **Extra Challenge 1** below!
+However we aim for a reasonable value of Q = 50. Lastly we find a value for R. The range for R lies roughly between [20:520]. Again we aim for something reasonable, like R = 20. Once the Altitude, LateralPositionControl and the Yaw methods are implemented, it is possible to continue tuning. kpYaw should remain below 8 but above 1 giving the drone lots of "Yaw Authority" is preferred. Here we find "less is more." Again, the tuning is iterative and this is about round three for this stage already, since all the  parameters for one scenario 3 must work with all the other scenarios, especially the figure 8 path in the trajectory follow scenario. 
+Luckily we get some hints to tuning as follows:
 
-How well is your drone able to follow the trajectory?  It is able to hold to the path fairly well?
+![](/../images/TuningTips.png)
 
+### SCENARIO 4 ###
 
-### Extra Challenge 1 (Optional) ###
+This is one of the hardest scenarios to pass. Intuitively I would expect Scenario_5 to be the most difficult with its figure 8 path, however this one is a very close second, and indeed, tuning one scenario has a negative effect on the other - as if I were trying to squeeze a balloon in one place. 
 
-You will notice that initially these two trajectories are the same. Let's work on improving some performance of the trajectory itself.
+In this scenario, the off-center mass of drone 1 and the additional mass of drone 3 truly test our PID Controls. Here we really start to see how a poor CG affects a drone's flight characteristics and why a drone pilot might spend several hours balancing his props and finding the perfect placement for his batteries and camera mounts to arrive at a near perfect CG.
+After adding an integral term to our AltitudeControl. With additional tuning we are able to get a respectable flight from our Yellow drone. However our overweight drone still cannot reach its target in time and either under or overshoots. This is an opportunity to tune kpVelZ to perfection.
 
-1. Inspect the python script `traj/MakePeriodicTrajectory.py`.  Can you figure out a way to generate a trajectory that has velocity (not just position) information?
+**VelZ = 0 :** Leads to massive oscillations.
 
-2. Generate a new `FigureEightFF.txt` that has velocity terms
-Did the velocity-specified trajectory make a difference? Why?
-
-With the two different trajectories, your drones' motions should look like this:
-
-<p align="center">
-<img src="animations/scenario5.gif" width="500"/>
-</p>
+![](/../images/Scenario_4_kpVelZ-0.png)
 
 
-### Extra Challenge 2 (Optional) ###
 
-For flying a trajectory, is there a way to provide even more information for even better tracking?
+**VelZ = 8 :** Leads to passable results!
 
-How about trying to fly this trajectory as quickly as possible (but within following threshold)!
+![](/../images/Scenario_4_kpVelZ-8.png)
+
+Tuning is like solving a Rubik's Cube, every move on one side affects all the other five sides. Here is a particularly challenging scenario. For an optional challenge I would like to fly a Helix. After passing scenarios 1 - 5, I tune in hopes of generating a circular trajectory for the optional challenge that will eventually look like this:
+
+**kpBank = 12**
+![](/../images/Scenario_6_Bank-12_OutOfRound.png)
+
+ 
+
+**kpBank = 10** : Yields some slightly improved results.
+![](/../images/Scenario_6_Bank-12-Improved.png)
+
+Now I check the preceding Scenarios to see if everything still passes. 
+**Scenario 4, kpBank 10** : Passes!
+![](/../images/Scenario_4_Bank-10-PASS.png)
+
+**Scenario 2, kpBank 10** : It FAILS.
+
+![](/../images/Scenario_2_Bank-10-FAIL.png)
+
+I adjust kpBank back to 12 for Scenario 2 and it PASSES!
+**Scenario 2, kpBank 12** :  It PASSES.
+![](/../images/Scenario_2_Bank-12-PASS.png)
+
+However fixing scenario 2 now causes Scenario 4 to Fail.
+**Scenario 4, kpBank 12** : FAILS
+![](/../images/Scenario_4_Bank-12-FAIL.png)
+
+|           | Scenario 2 | Scenario 4 | Scenario 6*   |
+| --------- | ---------- | ---------- | ------------- |
+| kpBank 10 | FAIL       | PASS       | Improved      |
+| kpBank 12 | PASS       | FAIL       | Oblong Circle |
+
+It seems impossible to satisfy both Scenario 2 and Scenario 4 at the same time and that we are stuck. This can lead to iterative frustration until we think outside of the box or the table referenced and tweek other parameters such as Q. 
+
+**Q = 100** : FAIL.
+
+![](/../images/Scenario_4_Bank-12_Q-100-FAIL.png)
+
+**Q = 80** : Scenarios 1 - 5 : PASSES, but only for 2/3 drones.
+
+![](/../images/Scenario_6_Bank-12_Q-80-PASS.png)
+
+Unfortunately in previous days of tuning on my laptop I had shrunk Xcode window to allow me to see the Simulator and the IDE simultaneously, saving time while tuning. The narrowed dialog box containing our PASS / FAIL messages cropped 1 of the 3 messages. Two of the 3 messages said "PASSED so I was under the wrong impression. When truly revealed, the message showed:
+
+![](/../images/Obscured Fail Message.png)
+
+Instead of all of our problems being suddenly solved, to which there would have been much rejoicing, I must return to the drawing board knowing that all my previous hours of tuning are probably for nought. If I tune kpVelz = 6, I can pass Scenario 4, but all my beautiful trajectories of figure 8's and Helix's are no longer feasible with this tuning. Passing is possible but doing it with style remains out of reach.
+
+### Scenario 5 ###
+
+This is last step is the most interesting, which is trying to get our drone to fly a figure 8. Again this involves lots of iterations of tuning - again this is the trickiest part. Before discovering the obscured "Quad1.PosFollowErr : Fail" error, I was trying to match the end to end tilt of the figure 8 in the Z plane. 
+
+Profile (figure 8)
+
+![](/../images/Scenario_5_Figure8-profile.png)
+
+Front (figure 8)
+
+![](/../images/Scenario_5_Figure8-front.png)
+
+Comparing the plates above to those below will surely convince any drone pilot of the benefits of finding the proper center of gravity of ones vehicle. After adjusting the parameters required for passing scenario 4 completely, we arrive at an ugly but somehow still passing performance for the figure 8. This is atrocious compared to other trajectories flown with other parameters.
+
+![](/../images/Scenario_5_Ugly-Passing.png)
 
 
-## Evaluation ##
 
-To assist with tuning of your controller, the simulator contains real time performance evaluation.  We have defined a set of performance metrics for each of the scenarios that your controllers must meet for a successful submission.
+### Scenario 6 (My optional challenge) ###
 
-There are two ways to view the output of the evaluation:
+During our early course work in the Backyard Flyer, we saw a diagram of a drone flying a Helix. Obviously we did not get a chance to implement such a path in the backyard flyer, but I was still interested when we got to this stage of our cos. I was also intrigued by making our own paths as suggested by the inclusion of several "MakeTrajectory.py" files. 
 
- - in the command line, at the end of each simulation loop, a **PASS** or a **FAIL** for each metric being evaluated in that simulation
- - on the plots, once your quad meets the metrics, you will see a green box appear on the plot notifying you of a **PASS**
+Given that one size doesn't fit all (yet) we load in a new set of parameters specifically for this use case (as noted in QuadControlParams.txt file), thus we are able to get some fairly beautiful trajectories (6_Lightshow) - so long as our drone is assumed to be ideally weighted with a proper CG, the results can be quite satisfying.
 
+![](/../images/Scenario_6_Triple-profile.png)
 
-### Performance Metrics ###
+![](/../images/Scenario_6_Triple_tplus1-profile.png)
 
-The specific performance metrics are as follows:
-
- - scenario 2
-   - roll should less than 0.025 radian of nominal for 0.75 seconds (3/4 of the duration of the loop)
-   - roll rate should less than 2.5 radian/sec for 0.75 seconds
-
- - scenario 3
-   - X position of both drones should be within 0.1 meters of the target for at least 1.25 seconds
-   - Quad2 yaw should be within 0.1 of the target for at least 1 second
+![](/../images/Scenario_6_Triple_ThreeQuarterView.png)
 
 
- - scenario 4
-   - position error for all 3 quads should be less than 0.1 meters for at least 1.5 seconds
 
- - scenario 5
-   - position error of the quad should be less than 0.25 meters for at least 3 seconds
+Though just simulations, the flights are fun to watch!
 
-## Authors ##
+## FUTURE STEPS ##
 
-Thanks to Fotokite for the initial development of the project code and simulator.
+The first "next step" would be continuing to tune the PID to attempt to find the holy grail of parameters that allows me to pass all five scenarios and still fly scenario six beautifully. Further research would also go into exploring why the drones bottle neck at the end of the Helix, but stop shy of the actual endpoint. I would also like to create paths that "fly" against the initial direction of the Helix. Lastly the ability to control the color of the trajectories over time would truly allow for some fun flying - especially for those of us who loved to fly kites as a kid. May the sky be the limit for one and for all of us.
+
+* Special thanks to all the staff, students and mentors at Udacity for making this possible.
+

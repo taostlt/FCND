@@ -1,0 +1,35 @@
+import math;
+
+def fmt(value):
+    return "%.3f" % value
+
+period = 4
+radius = 1.0
+timestep = 0.01
+maxtime = period*2.5
+xOffset = - 0.5
+zOffset = -2
+yOffset = -4
+radiusStep = 0 # 0.01 for spiral
+frequency = 2
+# center = [200, 200, 200]
+
+with open('RollPass.txt', 'w') as the_file:
+    t=0;
+    while t <= maxtime:
+       # x = math.sin(t * 3 * math.pi / period) * radius;
+       # y = math.cos(t * 3 * math.pi / period) * radius;
+       # z = math.cos(t * 3 * math.pi / period) * radius;
+        y = t + yOffset;
+        x = math.sin(t * period * math.pi / period) * radius + xOffset;
+        z = math.cos(t * period * math.pi / period) * radius + zOffset; 
+        #the_file.write(fmt(t) + "," + fmt(x) + "," + fmt(y) + "," + "-1\n");
+        the_file.write(fmt(t) + "," + fmt(x) + "," + fmt(y) + "," + fmt(z) + "-1\n");
+        t += timestep;
+        radius += radiusStep  
+
+        # x = math.sin(t * 2 * math.pi / period) * radius;
+        # y = math.cos(t * 2 * math.pi / period) * radius; 
+        # the_file.write(fmt(t) + "," + fmt(x) + "," + fmt(y) + "," + fmt(z) + "\n");
+        # t += timestep;
+        # z -= 0.01   

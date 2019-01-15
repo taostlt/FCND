@@ -4,7 +4,7 @@ INCLUDE QuadPhysicalParams.txt
 
 # simulation setup
 Sim.RunMode = Repeat
-Sim.EndTime = 10
+Sim.EndTime = 5
 Sim.Vehicle1 = Quad1
 Sim.Vehicle2 = Quad2
 Sim.Vehicle3 = Quad3
@@ -22,7 +22,7 @@ Quad.ControlConfig = QuadControlParams
 # reference trajectory
 QuadControlParams.Trajectory=traj/FigureEightFF.txt
 
-# graphing commands
+graphing commands
 Commands.1=AddGraph1.Sim.DrawTime
 Commands.2=Toggle.ActualTrajectory
 
@@ -42,6 +42,7 @@ TrajectoryOffset = .1,0,0
 [Quad3:Quad]
 TrajectoryTimeOffset = .2
 TrajectoryOffset = .2,0,0
+
 [Quad4:Quad]
 TrajectoryTimeOffset = .3
 TrajectoryOffset = .3,0,0
@@ -51,12 +52,15 @@ TrajectoryOffset = .4,0,0
 [Quad6:Quad]
 TrajectoryTimeOffset = .5
 TrajectoryOffset = .5,0,0
+
 [Quad7:Quad]
 TrajectoryTimeOffset = .6
 TrajectoryOffset = .6,0,0
+
 [Quad8:Quad]
 TrajectoryTimeOffset = .7
 TrajectoryOffset = .7,0,0
+
 [Quad9:Quad]
 TrajectoryTimeOffset = .8
 TrajectoryOffset = .8,0,0

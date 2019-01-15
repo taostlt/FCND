@@ -47,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		84E1CE4C21EC41A200359460 /* 6_LightShow.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 6_LightShow.txt; path = ../config/6_LightShow.txt; sourceTree = "<group>"; };
 		DB076C8A202A34C500386052 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		DB31989E20334078008ACD56 /* Simulation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simulation.txt; path = ../config/Simulation.txt; sourceTree = "<group>"; };
 		DB3198A320334078008ACD56 /* QuadPhysicalParams.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QuadPhysicalParams.txt; path = ../config/QuadPhysicalParams.txt; sourceTree = "<group>"; };
@@ -122,7 +123,7 @@
 		DBD204F6203636AA00E0F55A /* 3_PositionControl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 3_PositionControl.txt; path = ../config/3_PositionControl.txt; sourceTree = "<group>"; };
 		DBD204F7203636AA00E0F55A /* 4_Nonidealities.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 4_Nonidealities.txt; path = ../config/4_Nonidealities.txt; sourceTree = "<group>"; };
 		DBD204F8203636AA00E0F55A /* 5_TrajectoryFollow.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 5_TrajectoryFollow.txt; path = ../config/5_TrajectoryFollow.txt; sourceTree = "<group>"; };
-		DBD204F9203636AA00E0F55A /* QuadControlParams.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QuadControlParams.txt; path = ../config/QuadControlParams.txt; sourceTree = "<group>"; };
+		DBD204F9203636AA00E0F55A /* QuadControlParams.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; fileEncoding = 4; name = QuadControlParams.txt; path = ../config/QuadControlParams.txt; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		DBD204FA203636AA00E0F55A /* 1_Intro.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 1_Intro.txt; path = ../config/1_Intro.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +148,7 @@
 				DBD204F6203636AA00E0F55A /* 3_PositionControl.txt */,
 				DBD204F7203636AA00E0F55A /* 4_Nonidealities.txt */,
 				DBD204F8203636AA00E0F55A /* 5_TrajectoryFollow.txt */,
+				84E1CE4C21EC41A200359460 /* 6_LightShow.txt */,
 				DBD204F9203636AA00E0F55A /* QuadControlParams.txt */,
 				DBD204F5203636AA00E0F55A /* Scenarios.txt */,
 				DB3198A320334078008ACD56 /* QuadPhysicalParams.txt */,
@@ -429,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -478,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
