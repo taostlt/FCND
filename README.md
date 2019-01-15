@@ -1,5 +1,5 @@
 ---
-typora-root-url: ./README WriteUp.md
+typora-root-url: ./images/OldLapTops.png
 ---
 
 # PROJECT 3 - CONTROLS
@@ -22,6 +22,8 @@ For Mac OS X, the recommended IDE is XCode, which you can get via the App Store.
 Tips: For those working on older laptops still running mac OS' as old as 10.11.6 (El Capitan, circa 2010), it is still possible to work with Xcode as an IDE for this project, but two significant adjustments must be made. Without these changes, it may not be possible to compile.
 
 ![](/../images/OldLapTops.png)
+
+![](/Users/admin/miniconda3/UDACITY/TAOSTLT/FCND-Controls-CPP/images/OldLapTops.png)
 
 
 
@@ -118,7 +120,7 @@ Luckily we get some hints to tuning as follows:
 
 ### SCENARIO 4 ###
 
-This is one of the hardest scenarios to pass. Intuitively I would expect Scenario_5 to be the most difficult with its figure 8 path, however this one is a very close second, and indeed, tuning one scenario has a negative effect on the other - as if I were trying to squeeze a balloon in one place. 
+This is one of the _hardest_ scenarios to pass. Intuitively I would expect Scenario_5 to be the most difficult with its figure 8 path, however this one is a very close second, and indeed, tuning one scenario has a negative effect on the other - as if I were trying to squeeze a balloon in one place. 
 
 In this scenario, the off-center mass of drone 1 and the additional mass of drone 3 truly test our PID Controls. Here we really start to see how a poor CG affects a drone's flight characteristics and why a drone pilot might spend several hours balancing his props and finding the perfect placement for his batteries and camera mounts to arrive at a near perfect CG.
 After adding an integral term to our AltitudeControl. With additional tuning we are able to get a respectable flight from our Yellow drone. However our overweight drone still cannot reach its target in time and either under or overshoots. This is an opportunity to tune kpVelZ to perfection.
